@@ -1,0 +1,114 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Recipe Book";
+}
+
+<h1>Welcome To Recipe Book</h1>
+
+<h2>Our new Recipes!</h2>
+
+
+<div class="container text-center">
+    @{
+        var count = 0;
+        foreach (var recipe in Model.Recipes)
+        {
+            if (count % 3 == 0)
+            {
+                @Html.Raw($@"<div class=""row row-cols-3"">")
+            }
+
+            @Html.Raw($@"<div class=""col"">")
+            <a asp-page="/Recipes/Ingredients" asp-route-RecipeId="@recipe.Id">@recipe.Name</a>
+            @Html.Raw($@"<div>Servings: {recipe.Servings}</div>")
+            @Html.Raw($@"<div>Preparation Time: {recipe.PrepTimeMinutes}mins</div>")
+            @Html.Raw($@"<div>Cooking Time: {recipe.CookTimeMinutes}mins</div>")
+            @Html.Raw($@"</div>")
+
+            if (count % 3 == 2 || count == Model.Recipes.Count - 1)
+            {
+                @Html.Raw($@"</div> <div class=""wrapper"">
+    <div ></div ></div >")
+            }
+
+            count++;
+        }
+    }
+</div >
+
+<div class="wrapper">
+    <div ></div >
+</div >
+<div class="d-grid gap-2 d-md-block">
+    <a asp-page="/Recipes/Create" type="button" class="btn btn-outline-primary">Add New Recipes!</a>
+</div>
+<div class="wrapper">
+    <div ></div >
+</div >
+
+<form method="post" class="search">
+    <h4 > Search! </h4 >
+    <div class="mb-2 row">
+        <label for="RecipeName" class="col-sm-2 col-form-label"> Recipe Name </label >
+        <div class="col-sm-2">
+            <input type="text" class="form-control" asp-route-RecipeName="RecipeName" name="RecipeName">
+        </div >
+    </div >
+    <div class="mb-2 row">
+        <label for="RecipeDescription" class="col-sm-2 col-form-label"> Recipe Description </label >
+        <div class="col-sm-2">
+            <input type="text" class="form-control" asp-route-RecipeDescription="RecipeDescription" name="RecipeDescription">
+        </div >
+    </div >
+    <div class="mb-2 row">
+        @foreach (var product in Model.Products)
+        {
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="@product.Id" name="selectedProductsIds" value="@product.Id">
+                <label class="form-check-label" for="@product.Id">@product.Name</label>
+            </div>
+        }
+    </div >
+    <button type="submit" class="btn btn-primary">
+        Search For Recipes
+    </button >
+</form >
+
+<div class="wrapper">
+    <div ></div >
+</div >
+
+<div class="container text-center">
+    @{
+        var newCount = 0;
+        foreach (var recipe in Model.NewRecipes)
+        {
+            if (newCount % 3 == 0)
+            {
+                @Html.Raw($@"<div class=""row row-cols-3"">")
+            }
+
+            @Html.Raw($@"<div class=""col"">")
+            <a asp-page="/Recipes/Ingredients" asp-route-RecipeId="@recipe.Id">@recipe.Name</a>
+            @Html.Raw($@"<div>Servings: {recipe.Servings}</div>")
+            @Html.Raw($@"<div>Preparation Time: {recipe.PrepTimeMinutes}mins</div>")
+            @Html.Raw($@"<div>Cooking Time: {recipe.CookTimeMinutes}mins</div>")
+            @Html.Raw($@"</div>")
+
+            if (newCount % 3 == 2 || newCount == Model.Recipes.Count - 1)
+            {
+                @Html.Raw($@"</div> <div class=""wrapper"">
+    <div ></div ></div >")
+            }
+
+            newCount++;
+        }
+    }
+</div >
+<div class="wrapper">
+    <div ></div >
+</div >
+<div class="wrapper">
+    <div ></div >
+</div >

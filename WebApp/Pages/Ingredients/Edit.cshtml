@@ -1,0 +1,50 @@
+@page
+@model WebApp.Pages_Ingredients.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Ingredient</h4>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Ingredient.Qty" class="control-label"></label>
+                <input asp-for="Ingredient.Qty" class="form-control"/>
+                <span asp-validation-for="Ingredient.Qty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.Comment" class="control-label"></label>
+                <input asp-for="Ingredient.Comment" class="form-control"/>
+                <span asp-validation-for="Ingredient.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.Recipe" class="control-label"></label>
+                <input type="hidden" asp-for="Ingredient.RecipeId" class="form-control"/>
+                <value asp-for="Ingredient.RecipeId" class="form-control">@Model.Recipe.Name</value>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.Product" class="control-label"></label>
+                <input type="hidden" asp-for="Ingredient.ProductId" class="form-control"/>
+                <value asp-for="Ingredient.ProductId" class="form-control">@Model.Product.Name</value>
+            </div>
+            <input type="hidden" asp-for="Ingredient.Id" asp-route-RecipeId="@Model.RecipeId"/>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

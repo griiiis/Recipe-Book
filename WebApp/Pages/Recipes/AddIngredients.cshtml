@@ -1,0 +1,63 @@
+﻿@page
+@using Domain
+@model WebApp.Pages.Recipes.AddIngredients
+
+@{
+    ViewData["Title"] = "Add Ingredients";
+}
+
+<h4>Add Ingredient</h4>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-page-handler="AddIngredient">
+            <div class="form-group">
+                <label asp-for="Ingredient.Qty" class="control-label"></label>
+                <input asp-for="Ingredient.Qty" class="form-control"/>
+                <span asp-validation-for="Ingredient.Qty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.Comment" class="control-label"></label>
+                <input asp-for="Ingredient.Comment" class="form-control"/>
+                <span asp-validation-for="Ingredient.Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.Recipe" class="control-label"></label>
+                <select asp-for="Ingredient.RecipeId" class="form-control" asp-items="Model.Recipes"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredient.Product" class="control-label"></label>
+                <select asp-for="Ingredient.ProductId" class="form-control" asp-items="Model.Products"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<h4>Add Product!</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-page-handler="AddProduct">
+            <div class="form-group">
+                <label asp-for="Product.Name" class="control-label"></label>
+                <input asp-for="Product.Name" class="form-control" />
+                <span asp-validation-for="Product.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Unit" class="control-label"></label>
+                <select asp-for="Product.Unit" asp-items="Html.GetEnumSelectList<EUnit>()" class="form-control"></select>
+                <span asp-validation-for="Product.Unit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
